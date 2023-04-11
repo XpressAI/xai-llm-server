@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -9,14 +9,16 @@ import torch
 useGPU = False # False
 path = ""
 
-
 model = RWKV(path, mode=TORCH, useGPU=useGPU, dtype=torch.bfloat16)
 
-@app.route('/test', methods=['POST'])
+@app.route('/completions', methods=['POST'])
 def home():
-    model.loadContext(newctx=f"Q: who is Jim Butcher?\n\nA:")
+    data = request.get_json()
+    user_input = data.get('user_input', "")
+    user_prompt = f"Q: {user_input}\n\nA:"
+    model.loadContext(newctx=user_prompt)
     output = model.forward(number=100)["output"]
-    return output
+    return jsonify(answer=output)
 
 if __name__ == '__main__':
     app.run(debug=True)

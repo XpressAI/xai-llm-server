@@ -1,3 +1,4 @@
+flask
 blessed==1.20.0
 certifi==2022.12.7
 charset-normalizer==3.0.1
