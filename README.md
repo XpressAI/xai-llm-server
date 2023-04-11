@@ -1,4 +1,14 @@
 # xai-llm-server
 
-pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116
-pip install -r requirements.txt
+## Setup
+1. Run setup
+    ```
+    $ bash setup.sh
+    ```
+2. Update the model path in app.py
+3. Run the server using `python app.py`.
+
+## Sending Requests
+```
+curl -X POST -H "Content-Type: application/json" -d '{"user_input": "What is the capital of France?"}' http://localhost:5000/completions
+```
