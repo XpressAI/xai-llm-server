@@ -10,5 +10,8 @@
 
 ## Sending Requests
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"user_input": "What is the capital of France?"}' http://localhost:5000/completions
+curl http://localhost:5000/completions  -H "Content-Type: application/json"  -d '{
+    "model": "model1",
+    "messages": [{"role": "user", "content": "What is the capital of Indonesia?"}]
+  }'
 ```
