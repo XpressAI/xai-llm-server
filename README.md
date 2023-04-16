@@ -1,6 +1,6 @@
 # Popular AI company compatible LLM Server
 
-This is a very simple Flask application that provides an OpenAI compatible API for other large language models.
+This is a very simple Flask application that provides a popular compatible API for other large language models.
 
 Very useful if you have tests or lots of running [Collaborative Agent Modules](https://github.com/xpressai/xai-gpt-agent-toolkit) :-)
 
