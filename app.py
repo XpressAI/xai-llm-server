@@ -17,7 +17,7 @@ model_mapping = {
     # Add more models as needed
 }
 
-model = None
+models = {}
 
 alphabet = string.ascii_letters + string.digits
 
@@ -94,7 +94,7 @@ def make_id():
     return ''.join(secrets.choice(alphabet) for i in range(29))
 
 def stream_answer(model_name, system_input, user_input):
-    global model
+    global models
     chat_id = f"chatcmpl-{make_id()}"
     created = int(time.time())
     number = 100
@@ -106,10 +106,12 @@ def stream_answer(model_name, system_input, user_input):
     print(f'data: {make_assistant_response(created, chat_id, model_name)}\n\n')
     yield f'data: {make_assistant_response(created, chat_id, model_name)}\n\n'
 
-    if not model:
+    if not model_name in models:
         model_path = model_mapping.get(model_name)
         model = RWKV(model_path, mode=TORCH, useGPU=useGPU, dtype=torch.float32)
-
+    else:
+        model = models[model_name]
+        
     def progressLambda(properties):
         print("progress:", properties["progress"] / properties["total"])
 
@@ -141,14 +143,14 @@ def stream_answer(model_name, system_input, user_input):
                 
 
 def generate_answer(model_name, system_input, user_input):
-    global model
+    global models
 
-    model_path = model_mapping.get(model_name)
-
-    if not model_path:
-        return None
-    if not model:
+    if not model_name in models:
+        model_path = model_mapping.get(model_name)
         model = RWKV(model_path, mode=TORCH, useGPU=useGPU, dtype=torch.bfloat16)
+        models[model_name] = model
+    else:
+        model = models[model_name]
 
     number = 100
     stopStrings = ["# Instruction:", "<|endoftext|>"]
