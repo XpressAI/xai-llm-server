@@ -13,7 +13,10 @@ app = Flask(__name__)
 useGPU = False # False
 
 model_mapping = {
-    "rwkv-raven-14b-eng-more": "models/rwkv/RWKV-4-Raven-14B-v8-EngAndMore-20230408-ctx4096.pth"
+    "rwkv-raven-7b-v8-eng-more": "models/rwkv/RWKV-4-Raven-7B-v8-EngAndMore-20230408-ctx4096.pth",
+    "rwkv-raven-14b-v8-eng-more": "models/rwkv/RWKV-4-Raven-14B-v8-EngAndMore-20230408-ctx4096.pth",
+    "rwkv-raven-7b-v9-eng-chn-jpn-kor": "RWKV-4-Raven-7B-v9-Eng86%25-Chn10%25-JpnEspKor2%25-Other2%25-20230414-ctx4096.pth",
+    "rwkv-raven-7b-v9-eng-more": "models/rwkv/RWKV-4-Raven-7B-v9-Eng99%25-Other1%25-20230412-ctx8192.pth"
     # Add more models as needed
 }
 
