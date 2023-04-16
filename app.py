@@ -13,7 +13,7 @@ app = Flask(__name__)
 useGPU = False # False
 
 model_mapping = {
-    "rwkv-raven-14b-eng-more": "/mnt/ssd/models/rwkv/RWKV-4-Raven-14B-v8-EngAndMore-20230408-ctx4096.pth"
+    "rwkv-raven-14b-eng-more": "models/rwkv/RWKV-4-Raven-14B-v8-EngAndMore-20230408-ctx4096.pth"
     # Add more models as needed
 }
 
