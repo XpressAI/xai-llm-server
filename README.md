@@ -1,4 +1,4 @@
-# OpenAI compatible LLM Server
+# Popular AI company compatible LLM Server
 
 This is a very simple Flask application that provides an OpenAI compatible API for other large language models.
 
