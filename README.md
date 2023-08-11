@@ -17,7 +17,7 @@ Streaming is supported as well.
 
 ## Sending Requests
 ```
-curl https://localhost:5000/v1/chat/completions \
+curl http://localhost:5000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer WE_DONT_NEED_NO_STINKING_TOKENS" \
   -d '{
@@ -25,4 +25,3 @@ curl https://localhost:5000/v1/chat/completions \
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
-
