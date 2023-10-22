@@ -4,7 +4,8 @@ This is a very simple Flask application that provides a popular compatible API f
 
 Very useful if you have tests or lots of running [Collaborative Agent Modules](https://github.com/xpressai/xai-gpt-agent-toolkit) :-)
 
-Currently supports RWKV since that is the most interesting one for the agent use case.
+It currently supports Llama2, Mistral-7b and RWKV since these models can run pretty easily on
+local hardware which makes it a great fit for the agent use case.
 
 Streaming is supported as well.
 
