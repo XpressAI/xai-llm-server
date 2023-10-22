@@ -21,7 +21,7 @@ curl http://localhost:5000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer WE_DONT_NEED_NO_STINKING_TOKENS" \
   -d '{
-    "model": "rwkv-raven-14b-v8-eng-more",
+    "model": "mistral-7b-instruct",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
