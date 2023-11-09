@@ -21,7 +21,8 @@ model_mapping = {
     "rwkv-raven-7b-v9-eng-chn-jpn-kor": "RWKV-4-Raven-7B-v9-Eng86%25-Chn10%25-JpnEspKor2%25-Other2%25-20230414-ctx4096.pth",
     "rwkv-raven-7b-v9-eng-more": "models/rwkv/RWKV-4-Raven-7B-v9-Eng99%25-Other1%25-20230412-ctx8192.pth",
     "llama2-7b-chat": "models/llama2/llama-2-7b-chat.ggmlv3.q4_K_M.bin",
-    "mistral-7b-instruct": "models/mistral/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+    "mistral-7b-instruct": "../../models/mistral-7b-instruct-v0.1.Q4_K_M.gguf",
+    "zephyr-7b": "../../models/zephyr-7b-alpha.Q4_K_M.gguf"
     # Add more models as needed
 }
 
@@ -55,6 +56,18 @@ MISTRAL_INSTRUCTION_PROMPT = """<s>[INST] {instruction}: {input} [/INST]"""
 
 MISTRAL_INPUT_PROMPT = """<s>[INST] {instruction} [/INST]"""
 
+ZEPHYR_INSTRUCTION_PROMPT = """<|system|>
+{instruction}</s>
+<|user|>
+{input}</s>
+<|assistant|>"""
+
+ZEPHYR_INPUT_PROMPT = """<|system|>
+</s>
+<|user|>
+{instruction}</s>
+<|assistant|>"""
+
 def generate_prompt(instruction, input=None, model_name=None):
     if model_name.startswith("rwkv"):
         if input:
@@ -66,6 +79,11 @@ def generate_prompt(instruction, input=None, model_name=None):
             return MISTRAL_INSTRUCTION_PROMPT.format(instruction=instruction, input=input)
         else:
             return MISTRAL_INPUT_PROMPT.format(instruction=instruction)
+    elif model_name.startswith("zephyr"):
+        if input:
+            return ZEPHYR_INSTRUCTION_PROMPT.format(instruction=instruction, input=input)
+        else:
+            return ZEPHYR_INPUT_PROMPT.format(instruction=instruction)
     else:
         if input:
             s = LLAMA_INSTRUCTION_PROMPT.format(instruction=instruction, input=input)
@@ -93,7 +111,12 @@ def get_model(model_name):
             return model
 
         elif model_name.startswith("mistral"):
-            model = Llama(model_path=model_mapping[model_name], n_ctx=4096)
+            model = Llama(model_path=model_mapping[model_name], n_ctx=4096, n_gpu_layers=35)
+            models[model_name] = model
+            return model
+        
+        elif model_name.startswith("zephyr"):
+            model = Llama(model_path=model_mapping[model_name], n_ctx=4096, n_gpu_layers=35)
             models[model_name] = model
             return model
 
