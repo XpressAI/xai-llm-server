@@ -1,4 +1,24 @@
 from rwkvstic.load import RWKV
+import requests
+import torch
+from PIL import Image
+from transformers import MllamaForConditionalGeneration, AutoProcessor
+
+model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+
+model = MllamaForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16,
+    device_map="auto",
+)
+processor = AutoProcessor.from_pretrained(model_id)
+
+def process_image_text_request(image_url, text_input):
+    image = Image.open(requests.get(image_url, stream=True).raw)
+    messages = [{"role": "user", "content": [
+        {"type": "image"},
+        {"type": "text", "text": text_input}
+    ]}]
 from rwkvstic.agnostic.backends import TORCH
 from llama_cpp import Llama
 
